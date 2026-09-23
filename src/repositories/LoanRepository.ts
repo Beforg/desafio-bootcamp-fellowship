@@ -20,7 +20,7 @@ export default class LoanRepository implements ILoanRepository {
                 && loan.bookId === objectToSave.bookId) 
                 || (loan.id === objectToSave.id));
         
-            if (loanAlreadyExists) throw new Error("ERRO: Empréstimo já registrado.");
+            if (loanAlreadyExists) throw new Error("Loan already registered.");
             this.loans.push(objectToSave);
             return objectToSave;
 
@@ -32,13 +32,13 @@ export default class LoanRepository implements ILoanRepository {
      * @returns O empréstimo encontrado ou null se não encontrado.
      * @throws Error se nenhum empréstimo estiver registrado no repositório.
      */
-    findById(id: number): Loan | null {
-        if (this.loans.length === 0) throw new Error("ERRO: Nenhum empréstimo registrado.");
+    findById(id: number): Loan {
+        if (this.loans.length === 0) throw new Error("No loans registered.");
     
         const loan = this.loans.find(loan => loan.id === id);
 
-        if (!loan) throw new Error("Empréstimo não encontrado.");
-        return loan || null;
+        if (!loan) throw new Error("Loan not found.");
+        return loan;
     }
 
     /**
@@ -47,27 +47,23 @@ export default class LoanRepository implements ILoanRepository {
      * @throws Error se nenhum empréstimo estiver registrado no repositório.
      */
     findAll(): Loan[] {
-        if (this.loans.length === 0) throw new Error("ERRO: Nenhum empréstimo registrado.");
+        if (this.loans.length === 0) throw new Error("No loans registered.");
         return this.loans;
     }
 
-    search(strategy: SearchStrategy<Loan>, term: string): Loan[] {
-        return strategy.search(this.loans, term);
+    removeById(loanId: number): Loan {
+        const loanIndex = this.loans.findIndex(loan => loan.id === loanId);
+        if (loanIndex === -1) {
+            throw new Error("Loan not found.");
+        }
+        const [removedLoan] = this.loans.splice(loanIndex, 1);
+        return removedLoan;
     }
-
-    // removeById(loanId: number): Loan | null {
-    //     const loanIndex = this.loans.findIndex(loan => loan.id === loanId);
-    //     if (loanIndex === -1) {
-    //         throw new Error("Empréstimo não encontrado.");
-    //     }
-    //     const [removedLoan] = this.loans.splice(loanIndex, 1);
-    //     return removedLoan || null;
-    // }
 
     remove(user: User, book: Book): Loan {
         const loanIndex = this.loans.findIndex(loan => loan.userId === user.id && loan.bookId === book.id);
         if (loanIndex === -1) {
-            throw new Error("Empréstimo não encontrado.");
+            throw new Error("Loan not found.");
         }
         const [removedLoan] = this.loans.splice(loanIndex, 1);
         return removedLoan;

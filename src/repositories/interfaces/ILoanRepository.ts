@@ -5,5 +5,5 @@ import type BaseRepository from "./BaseRepository.ts";
 
 export default interface ILoanRepository extends BaseRepository<Loan> {
     remove(user: User, book: Book): Loan | null;
-    // removeById(loanId: number): Loan | null;
+    removeById(loanId: number): Loan | null;
 }
