@@ -7,6 +7,5 @@ import type BaseRepository from "./BaseRepository";
  * @method save(objectToSave: User): User - Salva um usuário no repositório e retorna o usuário salvo.
  * @method findById(id: number): User | null - Busca um usuário no repositório pelo seu ID e retorna o usuário encontrado ou null se não encontrado.
  * @method findAll(): User[] - Retorna todos os usuários presentes no repositório.
- * @method search(strategy: SearchStrategy<User>, term: string): User[] - Realiza uma busca no repositório utilizando uma estratégia de busca fornecida e um termo de pesquisa, retornando os usuários encontrados.
  */
 export default interface IUserRepository extends BaseRepository<User> {}

@@ -1,7 +1,6 @@
 import Book from "./entities/Book.ts";
-import Loan from "./entities/Loan.ts";
 import User from "./entities/User.ts";
-import { FilterType } from "./enum/Filter.ts";
+import { FilterEnum } from "./enum/Filter.ts";
 import BookRepository from "./repositories/BookRepository.ts";
 import LoanRepository from "./repositories/LoanRepository.ts";
 import UserRepository from "./repositories/UserRepository.ts";
@@ -28,24 +27,22 @@ const users = [
     new User("David")
 ]
 
-const bookRepository = new BookRepository();
-const userRepository = new UserRepository();
-const loanRepository = new LoanRepository();
-const libraryService = new LibraryService(bookRepository, userRepository, loanRepository);
+const libraryService = new LibraryService(new BookRepository(), new UserRepository(), new LoanRepository());
 
 // =======================================================================================
 // Funções para testes 
 // =======================================================================================
 
 function printAllBooks(): void {
- for (const book of bookRepository.findAll()) {
+ for (const book of libraryService.findAllBooks() || []) {
      console.log(`ID: ${book.id}, Título: ${book.title}, Autor: ${book.author}, Categoria: ${book.category}, Quantidade: ${book.quantity}`);
  }
-
+ console.log("\n");
 }
 
 
 function printBooksFounded(booksFound: Book[] | null): void {
+    console.log("\n");
     if (booksFound) {
         for (const book of booksFound) {
             console.log(`ID: ${book.id}, Título: ${book.title}, Autor: ${book.author}, Categoria: ${book.category}, Quantidade: ${book.quantity}`);
@@ -76,14 +73,14 @@ libraryService.givenBackBook(1, 1);
 printAllBooks();
 console.log("=================== DEVOLVENDO OUTRO LIVRO ===================");
 libraryService.givenBackBookByLoanId(loan2!.id);
-const loanTheHobbit = libraryService.loanBook(3, 4);
-const loanTheHobbit2 = libraryService.loanBook(4, 4);
-const loanTheHobbit3 = libraryService.loanBook(1, 4); // produz erro pelo estoque
+libraryService.loanBook(3, 4);
+libraryService.loanBook(4, 4);
+libraryService.loanBook(1, 4); // produz erro pelo estoque
 printAllBooks();
 
-const booksFound = libraryService.searchBook("Dist", FilterType.CATEGORY);
+const booksFound = libraryService.searchBook("Dist", FilterEnum.CATEGORY);
 printBooksFounded(booksFound);
-const booksFound2 = libraryService.searchBook("1984", FilterType.TITLE);
+const booksFound2 = libraryService.searchBook("1984", FilterEnum.TITLE);
 printBooksFounded(booksFound2);
-const booksFound3 = libraryService.searchBook("George Orwell", FilterType.AUTHOR);
+const booksFound3 = libraryService.searchBook("George Orwell", FilterEnum.AUTHOR);
 printBooksFounded(booksFound3);

@@ -7,7 +7,6 @@ import SearchStrategy from "../../strategies/SearchStrategy";
  * @method save(objectToSave: T): T - Salva um objeto do tipo T no repositório e retorna o objeto salvo.
  * @method findById(id: number): T | null - Busca um objeto do tipo T no repositório pelo seu ID e retorna o objeto encontrado ou null se não encontrado.
  * @method findAll(): T[] - Retorna todos os objetos do tipo T presentes no repositório.
- * @method search(strategy: SearchStrategy<T>, term: string): T[] - Realiza uma busca no repositório utilizando uma estratégia de busca fornecida e um termo de pesquisa, retornando os objetos encontrados.
  */
 export default interface BaseRepository<T> {
     save(objectToSave: T): T;

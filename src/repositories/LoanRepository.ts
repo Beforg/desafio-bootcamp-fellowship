@@ -51,6 +51,11 @@ export default class LoanRepository implements ILoanRepository {
         return this.loans;
     }
 
+    /**
+     * Remove um empréstimo do repositório pelo ID.
+     * @param loanId O id do empréstimo a ser devolvido.
+     * @returns o empréstimo que foi devolvido.
+     */
     removeById(loanId: number): Loan {
         const loanIndex = this.loans.findIndex(loan => loan.id === loanId);
         if (loanIndex === -1) {
@@ -60,6 +65,13 @@ export default class LoanRepository implements ILoanRepository {
         return removedLoan;
     }
 
+    /**
+     * Remove um empréstimo do repositório com base no usuário e no livro.
+     * @param user O usuário que realizou o empréstimo.
+     * @param book O livro que foi emprestado.
+     * @returns O empréstimo removido.
+     * @throws Error se o empréstimo não for encontrado.
+     */
     remove(user: User, book: Book): Loan {
         const loanIndex = this.loans.findIndex(loan => loan.userId === user.id && loan.bookId === book.id);
         if (loanIndex === -1) {
