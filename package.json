@@ -9,6 +9,6 @@
     "dev": "node --experimental-transform-types --watch src/index.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "Bruno Benitez Forgiarini",
   "license": "ISC"
 }

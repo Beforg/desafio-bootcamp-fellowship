@@ -41,7 +41,7 @@ function printAllBooks(): void {
 }
 
 
-function printBooksFounded(booksFound: Book[] | null): void {
+function printBooksFound(booksFound: Book[] | null): void {
     console.log("\n");
     if (booksFound) {
         for (const book of booksFound) {
@@ -79,8 +79,8 @@ libraryService.loanBook(1, 4); // produz erro pelo estoque
 printAllBooks();
 
 const booksFound = libraryService.searchBook("Dist", FilterEnum.CATEGORY);
-printBooksFounded(booksFound);
+printBooksFound(booksFound);
 const booksFound2 = libraryService.searchBook("1984", FilterEnum.TITLE);
-printBooksFounded(booksFound2);
+printBooksFound(booksFound2);
 const booksFound3 = libraryService.searchBook("George Orwell", FilterEnum.AUTHOR);
-printBooksFounded(booksFound3);
+printBooksFound(booksFound3);
