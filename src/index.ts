@@ -1,3 +1,7 @@
+/**
+ * @author: Bruno Benitez Forgiarini | https://github.com/Beforg
+ */
+
 import Book from "./entities/Book.ts";
 import User from "./entities/User.ts";
 import { FilterEnum } from "./enum/Filter.ts";
